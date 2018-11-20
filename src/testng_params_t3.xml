@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<suite name="Suite" parallel="false">
+	<!-- 配置reportng -->
+	<listeners>
+		<listener class-name="org.uncommons.reportng.HTMLReporter" />
+		<listener class-name="org.uncommons.reportng.JUnitXMLReporter" />
+	</listeners>
+
+	<!-- <parameter>可以声明在<suite>或者<test>级别，在<test>下的<parameter>会覆盖在<suite>下声明的同名变量 -->
+	<parameter name="p1" value="红米手机" />
+	<parameter name="p2" value="路由器" />
+  <test name="Test">
+    <classes>
+      <class name="com.xiaoqiang.testng.T3"/>
+    </classes>
+  </test> <!-- Test -->
+</suite> <!-- Suite -->

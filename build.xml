@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Demo" default="run" basedir=".">
+    <echo  message="import lib" />
+    <path id="run.classpath">       
+        <fileset dir="${basedir}/lib">
+            <include name="**/*.jar" />
+        </fileset>    
+    </path>
+    <taskdef name="testng" classname="org.testng.TestNGAntTask" classpathref="run.classpath" />
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+    <target name="compile" depends="clean">
+        <echo message="mkdir"/>
+        <mkdir dir="${basedir}/src/com/xiaoqiang/po/build/classes"/>
+        <javac srcdir="src" destdir="${basedir}/src/com/xiaoqiang/po/build/classes" debug="on" encoding="UTF-8" includeantruntime="false">
+            <classpath refid="run.classpath"/>
+        </javac>
+    </target>
+    <path id="runpath"> 
+         <path refid="run.classpath"/> 
+         <pathelement location="${basedir}/src/com/xiaoqiang/po/build/classes"/> 
+       </path> 
+    <target name="run" depends="compile">
+        <echo message="Compile dir is:  ${basedir}" />
+        <testng  classpathref="runpath"  outputDir="test-output" haltOnfailure = "true"
+                 useDefaultListeners = "false" 
+                  listeners="org.uncommons.reportng.HTMLReporter,org.testng.reporters.FailedReporter" >
+            <xmlfileset dir="${basedir}/src/com/xiaoqiang/po" includes="testng_all.xml"/>
+            <jvmarg value="-ea" />
+            <sysproperty key="org.uncommons.reportng.title" value="appium by java 小强测试品牌"/>
+        </testng>
+    </target>
+</project>
